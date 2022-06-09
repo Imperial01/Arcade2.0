@@ -1,0 +1,63 @@
+
+body{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+h1{
+    display: flex;
+    justify-content: center;
+}
+#player-nav{
+    display: flex;
+    justify-content: center;
+}
+
+#board-display{
+    display: flex;
+    justify-content: center;
+    height: 35em;
+}
+
+#board-container{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 45em;
+    width: 45em;
+}
+
+.cells{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid black;
+    height: 15em;
+    width: 14em;
+}
+aside{
+    display: flex;
+    justify-content: center;
+    height:20vh;
+    margin-top: 5em
+}
+
+#players-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.playerName{
+    height:50px;
+    width: 300px;
+    font-size: 30px;
+}
+#submit, #reset{
+    height: 55px;
+    width: 200px;
+    font-size: 30px;
+}
