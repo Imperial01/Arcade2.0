@@ -16,12 +16,8 @@ const winCombo = [
 //--- DOM------
 let title = document.getElementById('title')
 let board = document.querySelector('#board-container');
-let playerNav = document.getElementById('players-display')
-let player1 = document.getElementById('player-1');
-let player2 = document.getElementById('player-2');
-let enterPlayers = document.getElementById('submit');
-let newGame = document.getElementById('reset')
-
+let playerBox = document.getElementById('players-container')
+let cellEl = document.getElementsByClassName('cells')
 //----Render Function ------
 function renderboard() {
     board.innerHTML = ''
@@ -46,7 +42,9 @@ function checkWinner() {
         if (winComboA && winComboA === winComboB && winComboA === winComboC) {
             board.removeEventListener('click', markCell)
             return title.innerHTML = winComboA + " you win!";
-        } else if (!gameState.board.includes(null)) {
+        } 
+        
+        if (!gameState.board.includes(null)  || (!winComboA === winComboC)) {
             board.removeEventListener('click', markCell)
             return title.innerHTML = "DRAW!";
         }
@@ -64,37 +62,78 @@ function playerHandler() {
         gameState.player = "X"
     }
 }
-//-----Event Listener-----
 
-
-board.addEventListener('click', markCell) // made a markCell() to mark a html elem and change the innerHTML to my player. 
-function markCell(event) {
-    let cellEl = document.getElementsByClassName('cells')
-    let mark = event.target
-    let cellNum = mark.dataset.cell// wanted to get the cell number I clicked on
-    if (gameState.board[cellNum] == null) {
-        gameState.board[cellNum] = gameState.player
+function computerMove() {
+    let randomNum = Math.floor(Math.random() * 9);
+    for (let i = 0; i < gameState.board.length; i++) {
+        if(gameState.board[i] == null && gameState.board[i] !== " ")
+        gameState.board[randomNum - 1] = gameState.player
     }
-    // applied that dataset number to my board. "- 1" because my data-cell starts at 1 and I wanted to target my gamestate.board at the first index.
-    playerHandler();
-    checkWinner(); // then render it to show what I added to board 
-    renderboard();
-    console.log(gameState.board)
-    console.log(cellEl)
-
 }
 
+//-----Event Listener-----
+board.addEventListener('click', markCell) // made a markCell() to mark a html elem and change the innerHTML to my player. 
+function markCell(event) {
+    console.log(gameState.board)
+    //let cellEl = document.getElementsByClassName('cells')
+    let mark = event.target
+    let cellNum = mark.dataset.cell// wanted to get the cell number I clicked on
+    if (board.dataset.mode == null)
+        return
+    if (gameState.board[cellNum] == null && board.dataset.mode === "players") {
+        gameState.board[cellNum] = gameState.player
+        playerHandler();
+    }
+    if (gameState.board[cellNum] == null && board.dataset.mode === "computer") {
+        gameState.board[cellNum] = gameState.player
+        playerHandler();
+        computerMove();
+    }
+    renderboard();
+    checkWinner(); // then render it to show what I added to board 
+
+}
+//-------SUBMIT-----
+let playerNav = document.getElementById('players-display')
+let enterPlayers = document.getElementById('submit');
+let player1 = document.getElementById('player-1');
+let player2 = document.getElementById('player-2');
 enterPlayers.addEventListener('click', function (e) {
     e.preventDefault();
-    playerNav.innerHTML = player1.value + " VS " + player2.value //displays players
+    if (board.dataset.mode === "players")
+        playerNav.innerHTML = player1.value + " VS " + player2.value //displays players
+    if (board.dataset.mode === "computer") {
+        playerNav.innerHTML = player1.value + " VS Computer"
+        
+    }
+    board.addEventListener('click', markCell)
 })
 
+//-----RESET---------
+let newGame = document.getElementById('reset')
 newGame.addEventListener('click', function (e) {
-    e.preventDefault();
     title.innerHTML = 'Tic-Tac-Toe'
     playerNav.innerHTML = ''
+    e.preventDefault();
     gameState.board = [null, null, null, null, null, null, null, null, null];
     renderboard();
-    
-    
+})
+
+//---- ONE PLAYER HANDLER---
+let oneUser = document.getElementById('one-player');
+oneUser.addEventListener('click', function (e) {
+    e.preventDefault();
+    playerBox.style.display = "flex"
+    player2.style.display = 'none';
+    board.dataset.mode = "computer"
+})
+
+//---- TWO PLAYER HANDLER----
+let twoUsers = document.getElementById('two-player');
+twoUsers.addEventListener('click', function (e) {
+    e.preventDefault();
+    playerBox.style.display = "flex"
+    player1.style.display = 'flex';
+    player2.style.display = 'flex';
+    board.dataset.mode = "players"
 })

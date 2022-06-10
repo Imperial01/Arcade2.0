@@ -17,7 +17,7 @@ h1{
 #board-display{
     display: flex;
     justify-content: center;
-    height: 35em;
+    height: 50em;
 }
 
 #board-container{
@@ -34,20 +34,21 @@ h1{
     justify-content: center;
     align-items: center;
     border: solid black;
-    height: 15em;
-    width: 14em;
+    height: 16vh;
+    width: 14vh;
+    font-size: 15vh;
 }
 aside{
     display: flex;
     justify-content: center;
-    height:20vh;
-    margin-top: 5em
+
 }
 
 #players-container{
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
+    height: 100px
 
 }
 
@@ -60,4 +61,13 @@ aside{
     height: 55px;
     width: 200px;
     font-size: 30px;
+}
+#player-option{
+    display: flex;
+    justify-content: center;
+}
+#one-player, #two-player{
+    height: 50px;
+    width: 90px;
+
 }
