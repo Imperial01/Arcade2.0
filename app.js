@@ -41,13 +41,13 @@ function checkWinner() {
         let winComboC = gameState.board[index[2]]// third index 
         if (winComboA && winComboA === winComboB && winComboA === winComboC) {
             board.removeEventListener('click', markCell)
-            return title.innerHTML = winComboA + " you win!";
+            return title.innerHTML = winComboA + "  you  win!";
         } 
-        
-        if (!gameState.board.includes(null)  || (!winComboA === winComboC)) {
+        if (!gameState.board.includes(null)){
             board.removeEventListener('click', markCell)
             return title.innerHTML = "DRAW!";
         }
+        
     }
 
 }
@@ -67,19 +67,17 @@ function computerMove() {
     let randomNum = Math.floor(Math.random() * 9);
     for (let i = 0; i < gameState.board.length; i++) {
         if(gameState.board[i] == null && gameState.board[i] !== " ")
-        gameState.board[randomNum - 1] = gameState.player
+        gameState.board[randomNum] = gameState.player
     }
 }
-
 //-----Event Listener-----
 board.addEventListener('click', markCell) // made a markCell() to mark a html elem and change the innerHTML to my player. 
 function markCell(event) {
-    console.log(gameState.board)
     //let cellEl = document.getElementsByClassName('cells')
     let mark = event.target
     let cellNum = mark.dataset.cell// wanted to get the cell number I clicked on
     if (board.dataset.mode == null)
-        return
+    return
     if (gameState.board[cellNum] == null && board.dataset.mode === "players") {
         gameState.board[cellNum] = gameState.player
         playerHandler();
@@ -91,7 +89,8 @@ function markCell(event) {
     }
     renderboard();
     checkWinner(); // then render it to show what I added to board 
-
+    console.log(gameState.board)
+    
 }
 //-------SUBMIT-----
 let playerNav = document.getElementById('players-display')
