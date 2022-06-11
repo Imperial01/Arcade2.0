@@ -18,16 +18,17 @@ h1{
 #board-display{
     display: flex;
     justify-content: center;
-    height: 50em;
+    height: 40em;
 }
 
 #board-container{
     display: flex;
     justify-content:center;
     align-items: center;
+    
     flex-wrap: wrap;
-    height: 45em;
-    width: 45em;
+    height: 60vh;
+    width: 70vh;
 }
 
 .cells{
@@ -35,8 +36,8 @@ h1{
     justify-content: center;
     align-items: center;
     border: solid rgb(165, 26, 91);
-    height: 16vh;
-    width: 14vh;
+    height: 20vh;
+    width: 21vh;
     font-size: 15vh;
     color:rgba(8, 21, 66, 0.774)
 }
@@ -67,6 +68,7 @@ aside{
 #player-option{
     display: flex;
     justify-content: center;
+    margin-top: 5px;
 }
 #one-player, #two-player{
     height: 50px;
